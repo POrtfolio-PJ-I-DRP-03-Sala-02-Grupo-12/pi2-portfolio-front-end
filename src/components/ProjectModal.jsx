@@ -10,28 +10,37 @@ const ProjectModal = ({
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [cover, setCover] = useState("");
+  //const [coverDescription, setCoverDescription] = useState("");
   const [cover2, setCover2] = useState("");
+  //const [cover2Description, setCover2Description] = useState("");
   const [description, setDescription] = useState("");
   const [linkLabel, setLinkLabel] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
+  //const [linkUrlDescription, setLinkUrlDescription] = useState("");
 
   useEffect(() => {
     if (project) {
       setTitle(project.title || "");
       setTags(project.tags?.join(", ") || "");
       setCover(project.cover || "");
+      //setCoverDescription(project.coverDescription || "");
       setCover2(project.cover2 || "");
+      //setCover2Description(project.cover2Description || "");
       setDescription(project.description || "");
       setLinkLabel(project.linkLabel || "");
       setLinkUrl(project.linkUrl || "");
+      //setLinkUrlDescription(project.linkUrlDescription || "");
     } else {
       setTitle("");
       setTags("");
       setCover("");
+      //setCoverDescription("");
       setCover2("");
+      //setCover2Description("");
       setDescription("");
       setLinkLabel("");
       setLinkUrl("");
+      //setLinkUrlDescription("");
     }
   }, [project]);
 
@@ -59,9 +68,12 @@ const ProjectModal = ({
       tags: tagList,
       description,
       cover,
+      //coverDescription,
       cover2,
+      //cover2Description,
       linkLabel,
       linkUrl,
+      //linkUrlDescription,
     });
 
     onClose();
@@ -110,6 +122,19 @@ const ProjectModal = ({
             />
           </div>
 
+          {/*
+          <div>
+            <label className="block text-sm font-medium text-stone-100">
+              Cover Image Description
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded bg-stone-100"
+              value={coverDescription}
+              onChange={(e) => setCoverDescription(e.target.value)}
+            />
+          </div>
+          */}
+
           <div>
             <label className="block text-sm font-medium text-stone-100">
               Second Image URL
@@ -121,9 +146,22 @@ const ProjectModal = ({
             />
           </div>
 
+          {/*
           <div>
             <label className="block text-sm font-medium text-stone-100">
-              Description
+              Second Image Description
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded bg-stone-100"
+              value={cover2Description}
+              onChange={(e) => setCover2Description(e.target.value)}
+            />
+          </div>
+          */}
+
+          <div>
+            <label className="block text-sm font-medium text-stone-100">
+              Game description
             </label>
             <textarea
               className="w-full px-3 py-2 rounded bg-stone-100"
@@ -154,6 +192,19 @@ const ProjectModal = ({
               onChange={(e) => setLinkUrl(e.target.value)}
             />
           </div>
+
+          {/*
+          <div>
+            <label className="block text-sm font-medium text-stone-100">
+              Link Url Description
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded bg-stone-100"
+              value={linkUrlDescription}
+              onChange={(e) => setLinkUrlDescription(e.target.value)}
+            />
+          </div>
+          */}
 
           <div className="flex justify-end gap-2 mt-4">
             <button

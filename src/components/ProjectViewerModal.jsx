@@ -40,11 +40,13 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
           <img
             src={project.cover}
             alt="Main cover"
+            //alt={project.coverDescription}
             className="w-full sm:w-1/2 rounded-lg object-cover"
           />
           <img
             src={project.cover2}
             alt="Second cover"
+            //alt={project.cover2Description}
             className="w-full sm:w-1/2 rounded-lg object-cover"
           />
         </div>
@@ -53,11 +55,15 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
         {project.linkUrl && (
           <a
             href={project.linkUrl}
+            //alt={linkUrlDescription}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 underline font-medium hover:text-blue-600"
           >
-            {project.linkLabel || project.linkUrl}
+            {
+              project.linkLabel || project.linkUrl
+              //|| project.linkUrlDescription
+            }
           </a>
         )}
       </div>
