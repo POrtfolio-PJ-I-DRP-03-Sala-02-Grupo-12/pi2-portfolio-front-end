@@ -39,14 +39,14 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
         <div className="flex flex-col sm:flex-row gap-4 mb-4">
           <img
             src={project.cover}
-            alt="Main cover"
-            //alt={project.coverDescription}
+            //alt="Main cover"
+            alt={project.coverDescription}
             className="w-full sm:w-1/2 rounded-lg object-cover"
           />
           <img
             src={project.cover2}
-            alt="Second cover"
-            //alt={project.cover2Description}
+            //alt="Second cover"
+            alt={project.cover2Description}
             className="w-full sm:w-1/2 rounded-lg object-cover"
           />
         </div>
@@ -60,10 +60,7 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
             rel="noopener noreferrer"
             className="text-blue-400 underline font-medium hover:text-blue-600"
           >
-            {
-              project.linkLabel || project.linkUrl
-              //|| project.linkUrlDescription
-            }
+            {project.linkLabel || project.linkUrl}
           </a>
         )}
       </div>
