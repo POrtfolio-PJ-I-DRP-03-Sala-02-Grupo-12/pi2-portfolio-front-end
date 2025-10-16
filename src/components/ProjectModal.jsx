@@ -85,74 +85,101 @@ const ProjectModal = ({
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="title"
+            >
               Title
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              id="title"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="tags"
+            >
               Tags (comma-separated)
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
+              id="tags"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="cover"
+            >
               Cover Image URL
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover}
               onChange={(e) => setCover(e.target.value)}
+              id="cover"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="coverDescription"
+            >
               Cover Image Description
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={coverDescription}
               onChange={(e) => setCoverDescription(e.target.value)}
+              id="coverDescription"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="cover2"
+            >
               Second Image URL
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover2}
               onChange={(e) => setCover2(e.target.value)}
+              id="cover2"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="cover2Description"
+            >
               Second Image Description
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover2Description}
               onChange={(e) => setCover2Description(e.target.value)}
+              id="cover2Description"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="description"
+            >
               Project description
             </label>
             <textarea
@@ -160,28 +187,37 @@ const ProjectModal = ({
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              id="description"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="linkLabel"
+            >
               Link Text
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={linkLabel}
               onChange={(e) => setLinkLabel(e.target.value)}
+              id="linkLabel"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-100">
+            <label
+              className="block text-sm font-medium text-stone-100"
+              for="linkUrl"
+            >
               Link URL
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)}
+              id="linkUrl"
             />
           </div>
 
