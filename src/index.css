@@ -1,7 +1,21 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
 
 @theme {
   --color-gabisou-primary: #444a79; /*Gabisou purple */
   --color-gabisou-red: #c95959; /*Gabisou red */
   --color-gabisou-dark-red: #6e2b2b; /*Gabisou red */
+}
+
+.high-contrast {
+  @apply bg-black text-white;
+}
+
+.high-contrast a {
+  @apply text-yellow-300 underline;
+}
+
+.high-contrast button {
+  @apply bg-white text-black;
 }
