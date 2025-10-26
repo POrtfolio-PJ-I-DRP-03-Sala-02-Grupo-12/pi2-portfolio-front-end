@@ -1,13 +1,15 @@
-import { useState } from 'react'
-import ProjectCard from '../components/ProjectCard'
-import ProjectViewerModal from '../components/ProjectViewerModal'
+import { useState } from "react";
+import ProjectCard from "../components/ProjectCard";
+import ProjectViewerModal from "../components/ProjectViewerModal";
+import { useTheme } from "../context/ThemeContext";
 
-import { useProjectsAPI } from '../hooks/useProjectsAPI'
+import { useProjectsAPI } from "../hooks/useProjectsAPI";
 
 const Home = () => {
-	const [projects] = useProjectsAPI()
-	const [selectedProject, setSelectedProject] = useState(null)
-	const [viewerOpen, setViewerOpen] = useState(false)
+  const { isHighContrast } = useTheme();
+  const [projects] = useProjectsAPI();
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [viewerOpen, setViewerOpen] = useState(false);
 
   const handleView = (project) => {
     setSelectedProject(project);
@@ -20,16 +22,17 @@ const Home = () => {
         Portfolio
       </h1>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-				{Array.isArray(projects) && projects.map((project) => (
-					<ProjectCard
-						key={project.id}
-						project={project}
-						isLoggedIn={false}
-						onClick={() => handleView(project)}
-					/>
-				))}
-			</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        {Array.isArray(projects) &&
+          projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              isLoggedIn={false}
+              onClick={() => handleView(project)}
+            />
+          ))}
+      </div>
 
       <ProjectViewerModal
         visible={viewerOpen}
