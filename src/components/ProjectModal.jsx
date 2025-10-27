@@ -95,6 +95,8 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              type="text"
+              placeholder="Insert project title"
               id="title"
               required
             />
@@ -111,6 +113,8 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
+              type="text"
+              placeholder="Eg. Platform, 2D, Casual"
               id="tags"
             />
           </div>
@@ -126,6 +130,8 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover}
               onChange={(e) => setCover(e.target.value)}
+              type="url"
+              placeholder="Cover image url"
               id="cover"
             />
           </div>
@@ -141,6 +147,8 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={coverDescription}
               onChange={(e) => setCoverDescription(e.target.value)}
+              type="text"
+              placeholder="Insert project cover description"
               id="coverDescription"
             />
           </div>
