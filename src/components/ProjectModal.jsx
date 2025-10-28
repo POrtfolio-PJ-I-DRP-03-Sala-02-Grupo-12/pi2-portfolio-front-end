@@ -116,6 +116,7 @@ const ProjectModal = ({
               type="text"
               placeholder="Eg. Platform, 2D, Casual"
               id="tags"
+              required
             />
           </div>
 
@@ -133,6 +134,7 @@ const ProjectModal = ({
               type="url"
               placeholder="Cover image url"
               id="cover"
+              required
             />
           </div>
 
@@ -164,7 +166,10 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover2}
               onChange={(e) => setCover2(e.target.value)}
+              type="url"
+              placeholder="Second image url"
               id="cover2"
+              required
             />
           </div>
 
@@ -179,6 +184,8 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover2Description}
               onChange={(e) => setCover2Description(e.target.value)}
+              type="text"
+              placeholder="Insert project second image description"
               id="cover2Description"
             />
           </div>
@@ -195,7 +202,9 @@ const ProjectModal = ({
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              placeholder="Insert project description"
               id="description"
+              required
             />
           </div>
 
@@ -210,6 +219,8 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={linkLabel}
               onChange={(e) => setLinkLabel(e.target.value)}
+              type="text"
+              placeholder="Insert text for link"
               id="linkLabel"
             />
           </div>
@@ -225,6 +236,8 @@ const ProjectModal = ({
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)}
+              type="url"
+              placeholder="Insert project page url"
               id="linkUrl"
             />
           </div>
