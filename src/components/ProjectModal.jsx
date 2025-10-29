@@ -89,7 +89,7 @@ const ProjectModal = ({
               className="block text-sm font-medium text-stone-100"
               for="title"
             >
-              Title
+              Title*
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
@@ -107,7 +107,7 @@ const ProjectModal = ({
               className="block text-sm font-medium text-stone-100"
               for="tags"
             >
-              Tags (comma-separated)
+              Tags* (comma-separated)
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
@@ -125,14 +125,14 @@ const ProjectModal = ({
               className="block text-sm font-medium text-stone-100"
               for="cover"
             >
-              Cover Image URL
+              Cover Image URL*
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover}
               onChange={(e) => setCover(e.target.value)}
               type="url"
-              placeholder="Cover image url"
+              placeholder="Cover image URL"
               id="cover"
               required
             />
@@ -145,11 +145,11 @@ const ProjectModal = ({
             >
               Cover Image Description
             </label>
-            <input
+            <textarea
               className="w-full px-3 py-2 rounded bg-stone-100"
+              rows={3}
               value={coverDescription}
               onChange={(e) => setCoverDescription(e.target.value)}
-              type="text"
               placeholder="Insert project cover description"
               id="coverDescription"
             />
@@ -160,14 +160,14 @@ const ProjectModal = ({
               className="block text-sm font-medium text-stone-100"
               for="cover2"
             >
-              Second Image URL
+              Second Image URL*
             </label>
             <input
               className="w-full px-3 py-2 rounded bg-stone-100"
               value={cover2}
               onChange={(e) => setCover2(e.target.value)}
               type="url"
-              placeholder="Second image url"
+              placeholder="Second image URL"
               id="cover2"
               required
             />
@@ -180,11 +180,11 @@ const ProjectModal = ({
             >
               Second Image Description
             </label>
-            <input
+            <textarea
               className="w-full px-3 py-2 rounded bg-stone-100"
+              rows={3}
               value={cover2Description}
               onChange={(e) => setCover2Description(e.target.value)}
-              type="text"
               placeholder="Insert project second image description"
               id="cover2Description"
             />
@@ -195,7 +195,7 @@ const ProjectModal = ({
               className="block text-sm font-medium text-stone-100"
               for="description"
             >
-              Project description
+              Project Description*
             </label>
             <textarea
               className="w-full px-3 py-2 rounded bg-stone-100"
