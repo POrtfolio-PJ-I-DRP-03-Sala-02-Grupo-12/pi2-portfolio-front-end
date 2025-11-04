@@ -6,255 +6,154 @@ const ProjectModal = ({
   onSave,
   project,
   projectList = [],
+  availableTags = [],
 }) => {
   const [title, setTitle] = useState("");
-  const [tags, setTags] = useState("");
-  const [cover, setCover] = useState("");
-  const [coverDescription, setCoverDescription] = useState("");
-  const [cover2, setCover2] = useState("");
-  const [cover2Description, setCover2Description] = useState("");
   const [description, setDescription] = useState("");
   const [linkLabel, setLinkLabel] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
+  const [tags, setTags] = useState([]);
+  const [images, setImages] = useState([
+    { url: "", title: "", description: "" },
+  ]);
 
   useEffect(() => {
     if (project) {
       setTitle(project.title || "");
-      setTags(project.tags?.join(", ") || "");
-      setCover(project.cover || "");
-      setCoverDescription(project.coverDescription || "");
-      setCover2(project.cover2 || "");
-      setCover2Description(project.cover2Description || "");
       setDescription(project.description || "");
-      setLinkLabel(project.linkLabel || "");
-      setLinkUrl(project.linkUrl || "");
-    } else {
-      setTitle("");
-      setTags("");
-      setCover("");
-      setCoverDescription("");
-      setCover2("");
-      setCover2Description("");
-      setDescription("");
-      setLinkLabel("");
-      setLinkUrl("");
+      setLinkLabel(project.link_name || "");
+      setLinkUrl(project.link_url || "");
+      setTags(project.tags || []);
+      setImages(project.images || [{ url: "", title: "", description: "" }]);
     }
   }, [project]);
 
+  const handleImageChange = (idx, field, value) => {
+    const updated = [...images];
+    updated[idx][field] = value;
+    setImages(updated);
+  };
+
+  const addImageField = () =>
+    setImages([...images, { url: "", title: "", description: "" }]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const tagList = tags
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-
-    const duplicate = projectList.some(
-      (p) =>
-        p.title.toLowerCase() === title.trim().toLowerCase() &&
-        p.id !== project?.id
-    );
-
-    if (duplicate) {
-      alert("A project with this title already exists.");
-      return;
-    }
-
-    onSave({
+    const newProject = {
       ...project,
       title,
-      tags: tagList,
       description,
-      cover,
-      coverDescription,
-      cover2,
-      cover2Description,
       linkLabel,
       linkUrl,
-    });
-
+      tags,
+      images,
+    };
+    onSave(newProject);
     onClose();
   };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-gabisou-primary rounded-lg shadow-lg w-full max-w-md max-h-[calc(100vh-5.5rem)] overflow-y-auto p-6 mb-[5.5rem]">
-        <h2 className="text-xl font-bold mb-4 text-stone-100">
-          {project ? "Edit Project" : "Add Project"}
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+      <div className="bg-stone-900 rounded-lg shadow-lg w-full max-w-lg p-6 overflow-y-auto max-h-[90vh]">
+        <h2 className="text-xl font-bold mb-4 text-white">
+          {project ? "Editar Jogo" : "Novo Jogo"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="title"
-            >
-              Title*
-            </label>
-            <input
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              type="text"
-              placeholder="Insert project title"
-              id="title"
-              required
-            />
-          </div>
+          <input
+            className="w-full p-2 rounded"
+            placeholder="Título"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+          <textarea
+            className="w-full p-2 rounded"
+            placeholder="Descrição"
+            rows={3}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+          <input
+            className="w-full p-2 rounded"
+            placeholder="Texto do Link"
+            value={linkLabel}
+            onChange={(e) => setLinkLabel(e.target.value)}
+          />
+          <input
+            className="w-full p-2 rounded"
+            placeholder="URL do Link"
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+          />
 
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="tags"
-            >
-              Tags* (comma-separated)
-            </label>
-            <input
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              type="text"
-              placeholder="Eg. Platform, 2D, Casual"
-              id="tags"
-              required
-            />
-          </div>
+          {/* Tags */}
+          <label className="block text-sm text-white">Tags</label>
+          <select
+            multiple
+            className="w-full p-2 rounded"
+            value={tags}
+            onChange={(e) =>
+              setTags(Array.from(e.target.selectedOptions, (opt) => opt.value))
+            }
+          >
+            {availableTags.map((tag) => (
+              <option key={tag.id} value={tag.title}>
+                {tag.title}
+              </option>
+            ))}
+          </select>
 
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="cover"
-            >
-              Cover Image URL*
-            </label>
-            <input
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              value={cover}
-              onChange={(e) => setCover(e.target.value)}
-              type="url"
-              placeholder="Cover image URL"
-              id="cover"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="coverDescription"
-            >
-              Cover Image Description
-            </label>
-            <textarea
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              rows={3}
-              value={coverDescription}
-              onChange={(e) => setCoverDescription(e.target.value)}
-              placeholder="Insert project cover description"
-              id="coverDescription"
-            />
-          </div>
-
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="cover2"
-            >
-              Second Image URL*
-            </label>
-            <input
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              value={cover2}
-              onChange={(e) => setCover2(e.target.value)}
-              type="url"
-              placeholder="Second image URL"
-              id="cover2"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="cover2Description"
-            >
-              Second Image Description
-            </label>
-            <textarea
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              rows={3}
-              value={cover2Description}
-              onChange={(e) => setCover2Description(e.target.value)}
-              placeholder="Insert project second image description"
-              id="cover2Description"
-            />
-          </div>
-
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="description"
-            >
-              Project Description*
-            </label>
-            <textarea
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Insert project description"
-              id="description"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="linkLabel"
-            >
-              Link Text
-            </label>
-            <input
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              value={linkLabel}
-              onChange={(e) => setLinkLabel(e.target.value)}
-              type="text"
-              placeholder="Insert text for link"
-              id="linkLabel"
-            />
-          </div>
-
-          <div>
-            <label
-              className="block text-sm font-medium text-stone-100"
-              for="linkUrl"
-            >
-              Link URL
-            </label>
-            <input
-              className="w-full px-3 py-2 rounded bg-stone-100"
-              value={linkUrl}
-              onChange={(e) => setLinkUrl(e.target.value)}
-              type="url"
-              placeholder="Insert project page url"
-              id="linkUrl"
-            />
-          </div>
+          {/* Imagens */}
+          <label className="block text-sm text-white">Imagens</label>
+          {images.map((img, i) => (
+            <div key={i} className="space-y-2 mb-2 border p-2 rounded">
+              <input
+                className="w-full p-2 rounded"
+                placeholder="URL da imagem"
+                value={img.url}
+                onChange={(e) => handleImageChange(i, "url", e.target.value)}
+              />
+              <input
+                className="w-full p-2 rounded"
+                placeholder="Título da imagem"
+                value={img.title}
+                onChange={(e) => handleImageChange(i, "title", e.target.value)}
+              />
+              <textarea
+                className="w-full p-2 rounded"
+                placeholder="Descrição"
+                rows={2}
+                value={img.description}
+                onChange={(e) =>
+                  handleImageChange(i, "description", e.target.value)
+                }
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addImageField}
+            className="text-sm text-blue-400"
+          >
+            + Adicionar Imagem
+          </button>
 
           <div className="flex justify-end gap-2 mt-4">
             <button
               type="button"
-              className="px-4 py-2  bg-stone-700 text-stone-100 border-1 border-stone-500 rounded-lg hover:bg-stone-900 cursor-pointer"
               onClick={onClose}
+              className="px-4 py-2 bg-stone-700 text-white rounded"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-stone-800 text-stone-100 border-1 border-stone-500 rounded-lg hover:bg-stone-950 cursor-pointer"
+              className="px-4 py-2 bg-stone-600 text-white rounded"
             >
-              Save
+              Salvar
             </button>
           </div>
         </form>
