@@ -41,13 +41,13 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
             src={project.cover}
             //alt="Main cover"
             alt={project.coverDescription}
-            className="w-full sm:w-1/2 rounded-lg object-cover"
+            className="w-full sm:w-1/2 rounded-lg object-cover text-stone-100"
           />
           <img
             src={project.cover2}
             //alt="Second cover"
             alt={project.cover2Description}
-            className="w-full sm:w-1/2 rounded-lg object-cover"
+            className="w-full sm:w-1/2 rounded-lg object-cover text-stone-100"
           />
         </div>
 

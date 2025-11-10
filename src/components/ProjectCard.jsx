@@ -7,7 +7,7 @@ const ProjectCard = ({ project, isLoggedIn, onEdit, onDelete, onClick }) => {
       <img
         src={project.cover}
         alt={`Cover for ${project.title}`}
-        className="w-full aspect-video object-cover"
+        className="w-full aspect-video object-cover text-stone-100"
       />
 
       <div className="p-4">
