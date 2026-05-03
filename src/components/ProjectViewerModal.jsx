@@ -1,5 +1,14 @@
+import { trackEvent } from "../utils/analytics";
+
 const ProjectViewerModal = ({ visible, onClose, project }) => {
   if (!visible || !project) return null;
+
+  const handleLinkClick = () => {
+    trackEvent("project_link_click", {
+      project_title: project.title,
+      link_url: project.linkUrl,
+    });
+  };
 
   return (
     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
@@ -58,6 +67,7 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
             //alt={linkUrlDescription}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleLinkClick} // Here is the tracking
             className="text-blue-400 underline font-medium hover:text-blue-600"
           >
             {project.linkLabel || project.linkUrl}

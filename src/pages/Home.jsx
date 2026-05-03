@@ -1,15 +1,21 @@
-import { useState } from 'react'
-import ProjectCard from '../components/ProjectCard'
-import ProjectViewerModal from '../components/ProjectViewerModal'
+import { useState } from "react";
+import ProjectCard from "../components/ProjectCard";
+import ProjectViewerModal from "../components/ProjectViewerModal";
 
-import { useProjectsAPI } from '../hooks/useProjectsAPI'
+import { useProjectsAPI } from "../hooks/useProjectsAPI";
+import { trackEvent } from "../utils/analytics";
 
 const Home = () => {
-	const [projects] = useProjectsAPI()
-	const [selectedProject, setSelectedProject] = useState(null)
-	const [viewerOpen, setViewerOpen] = useState(false)
+  const [projects] = useProjectsAPI();
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [viewerOpen, setViewerOpen] = useState(false);
 
   const handleView = (project) => {
+    // Custom Event
+    trackEvent("project_click", {
+      project_title: project.title,
+    });
+
     setSelectedProject(project);
     setViewerOpen(true);
   };
@@ -20,16 +26,17 @@ const Home = () => {
         Portfolio
       </h1>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-				{Array.isArray(projects) && projects.map((project) => (
-					<ProjectCard
-						key={project.id}
-						project={project}
-						isLoggedIn={false}
-						onClick={() => handleView(project)}
-					/>
-				))}
-			</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        {Array.isArray(projects) &&
+          projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              isLoggedIn={false}
+              onClick={() => handleView(project)}
+            />
+          ))}
+      </div>
 
       <ProjectViewerModal
         visible={viewerOpen}
