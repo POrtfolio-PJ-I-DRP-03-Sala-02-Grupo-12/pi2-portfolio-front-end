@@ -3,7 +3,6 @@ import ProjectCard from "../components/ProjectCard";
 import ProjectViewerModal from "../components/ProjectViewerModal";
 
 import { useProjectsAPI } from "../hooks/useProjectsAPI";
-import { trackEvent } from "../utils/analytics";
 
 const Home = () => {
   const [projects] = useProjectsAPI();
@@ -11,11 +10,6 @@ const Home = () => {
   const [viewerOpen, setViewerOpen] = useState(false);
 
   const handleView = (project) => {
-    // Custom Event
-    trackEvent("project_click", {
-      project_title: project.title,
-    });
-
     setSelectedProject(project);
     setViewerOpen(true);
   };

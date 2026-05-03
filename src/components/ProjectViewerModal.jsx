@@ -1,12 +1,38 @@
-import { trackEvent } from "../utils/analytics";
+import { useEffect } from "react";
+import ReactGA from "react-ga4";
 
 const ProjectViewerModal = ({ visible, onClose, project }) => {
   if (!visible || !project) return null;
 
+  // event project view
+  useEffect(() => {
+    if (visible && project) {
+      ReactGA.event("project_view", {
+        project_title: project.title,
+      });
+    }
+  }, [visible, project]);
+
+  // event click on link
   const handleLinkClick = () => {
-    trackEvent("project_link_click", {
+    ReactGA.event("project_link_click", {
       project_title: project.title,
       link_url: project.linkUrl,
+    });
+  };
+
+  // event click on image
+  const handleImageClick = (imageType) => {
+    ReactGA.event("project_image_click", {
+      project_title: project.title,
+    });
+  };
+
+  // event click on tag
+  const handleTagClick = (tag) => {
+    ReactGA.event("project_tag_click", {
+      project_title: project.title,
+      tag_name: tag,
     });
   };
 
@@ -14,7 +40,12 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-stone-800 p-6 rounded-lg shadow-lg w-full max-w-2xl relative">
         <button
-          onClick={onClose}
+          onClick={() => {
+            ReactGA.event("project_close", {
+              project_title: project.title,
+            });
+            onClose();
+          }}
           className="absolute top-2 right-2 text-stone-100 hover:text-stone-400 text-3xl leading-none w-10 h-10 flex items-center justify-center cursor-pointer"
           aria-label="Close viewer"
         >
@@ -29,7 +60,8 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
           {project.tags?.map((tag, idx) => (
             <span
               key={idx}
-              className="bg-blue-100 text-blue-600 text-xs font-medium px-2 py-1 rounded"
+              onClick={() => handleTagClick(tag)}
+              className="bg-blue-100 text-blue-600 text-xs font-medium px-2 py-1 rounded cursor-pointer"
             >
               {tag}
             </span>
@@ -44,12 +76,14 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
           <img
             src={project.cover}
             alt={project.coverDescription}
-            className="w-full sm:w-1/2 rounded-lg object-cover text-stone-100"
+            onClick={() => handleImageClick("cover_1")}
+            className="w-full sm:w-1/2 rounded-lg object-cover cursor-pointer"
           />
           <img
             src={project.cover2}
             alt={project.cover2Description}
-            className="w-full sm:w-1/2 rounded-lg object-cover text-stone-100"
+            onClick={() => handleImageClick("cover_2")}
+            className="w-full sm:w-1/2 rounded-lg object-cover cursor-pointer"
           />
         </div>
 
@@ -58,7 +92,7 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
             href={project.linkUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={handleLinkClick} // 🔥 aqui está o tracking
+            onClick={handleLinkClick}
             className="text-blue-400 underline font-medium hover:text-blue-600"
           >
             {project.linkLabel || project.linkUrl}
