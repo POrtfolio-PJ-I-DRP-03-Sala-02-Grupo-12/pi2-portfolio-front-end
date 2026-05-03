@@ -6,9 +6,9 @@ import BottomNav from "./components/BottomNav"; // ✅ added
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navigate } from "react-router-dom";
 import ReactGA from "react-ga4";
-const GA_ID = import.meta.env.VITE_GA_ID;
+// const GA_ID = import.meta.env.VITE_GA_ID;
 
-ReactGA.initialize(GA_ID); // Measurement ID
+ReactGA.initialize("G-2MGMKTVJY0"); // Measurement ID
 
 function App() {
   return (
