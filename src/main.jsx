@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ClerkProvider } from "@clerk/clerk-react"; // ✅ new
 import App from "./App.jsx";
 import "./index.css";
-import { initGA } from "/services/analytics";
+import { initGA } from "./services/analytics";
 
 initGA();
 
