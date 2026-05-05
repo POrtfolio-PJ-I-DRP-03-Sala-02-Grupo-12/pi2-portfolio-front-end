@@ -5,8 +5,11 @@ import Editor from "./pages/Editor";
 import BottomNav from "./components/BottomNav"; // ✅ added
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navigate } from "react-router-dom";
+import useAnalytics from "./hooks/useAnalytics";
 
 function App() {
+  useAnalytics();
+
   return (
     <div className="min-h-screen bg-gabisou-primary pb-16">
       {" "}
