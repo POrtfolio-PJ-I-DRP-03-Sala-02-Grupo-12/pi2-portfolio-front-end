@@ -1,10 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Editor from "./pages/Editor";
 import BottomNav from "./components/BottomNav"; // ✅ added
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
-import { Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -13,8 +12,7 @@ function App() {
       {/* ✅ pb-16 makes room for navbar */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Home />} /> {/* Optional alias */}
-        <Route path="*" element={<Home />} /> {/* Fallback redirect */}
+        <Route path="/projects" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/editor"
@@ -25,11 +23,12 @@ function App() {
               </SignedIn>
 
               <SignedOut>
-                <Navigate to="/" replace />;
+                <Navigate to="/" replace />
               </SignedOut>
             </>
           }
         />
+        <Route path="*" element={<Home />} />
       </Routes>
       <BottomNav /> {/* ✅ render the bottom nav */}
     </div>
