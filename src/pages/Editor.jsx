@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { SignedIn, SignedOut, useUser, useClerk } from '@clerk/clerk-react';
 import ProjectCard from '../components/ProjectCard';
 import ProjectModal from '../components/ProjectModal';
 import ProjectViewerModal from '../components/ProjectViewerModal';
 import { useProjectsAPI } from '../hooks/useProjectsAPI';
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 
 
 const Editor = () => {
