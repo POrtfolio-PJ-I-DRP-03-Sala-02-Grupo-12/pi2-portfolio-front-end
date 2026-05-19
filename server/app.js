@@ -1,7 +1,7 @@
-import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import express from "express";
+import { renderPage } from "./ssr.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const isProduction = process.env.NODE_ENV === "production";
@@ -33,28 +33,24 @@ export async function createApp() {
     }
 
     try {
-      let template;
-      let render;
+      let html;
 
       if (!isProduction) {
-        template = fs.readFileSync(path.resolve(root, "index.html"), "utf-8");
-        template = await vite.transformIndexHtml(url, template);
-        render = (await vite.ssrLoadModule("/src/entry-server.jsx")).render;
-      } else {
-        template = fs.readFileSync(
-          path.resolve(root, "dist/client/index.html"),
+        const fs = await import("node:fs");
+        let template = fs.readFileSync(
+          path.resolve(root, "index.html"),
           "utf-8"
         );
-        const entryServerPath = pathToFileURL(
-          path.resolve(root, "dist/server/entry-server.js")
-        ).href;
-        render = (await import(entryServerPath)).render;
+        template = await vite.transformIndexHtml(url, template);
+        const render = (await vite.ssrLoadModule("/src/entry-server.jsx"))
+          .render;
+        const { html: appHtml, head } = render(url);
+        html = template
+          .replace("<!--ssr-outlet-->", appHtml)
+          .replace("<!--app-head-->", head);
+      } else {
+        html = await renderPage(url);
       }
-
-      const { html: appHtml, head } = render(url);
-      const html = template
-        .replace("<!--ssr-outlet-->", appHtml)
-        .replace("<!--app-head-->", head);
 
       res.status(200).set({ "Content-Type": "text/html" }).send(html);
     } catch (error) {

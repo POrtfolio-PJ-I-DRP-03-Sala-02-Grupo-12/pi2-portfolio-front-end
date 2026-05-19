@@ -5,11 +5,19 @@
 [build.environment]
   NODE_VERSION = "20"
   NODE_ENV = "production"
+  NETLIFY = "true"
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+[functions.server]
   included_files = ["dist/server/**", "dist/client/index.html"]
+
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
 
 [[redirects]]
   from = "/*"
