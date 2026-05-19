@@ -1,5 +1,4 @@
 import { SignedIn, SignedOut, SignIn, useClerk } from "@clerk/clerk-react";
-
 const Login = () => {
 
 	const { signOut } = useClerk()
