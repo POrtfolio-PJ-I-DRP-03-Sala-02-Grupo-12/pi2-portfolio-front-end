@@ -1,3 +1,7 @@
+import OptimizedImage from "./OptimizedImage";
+
+const MODAL_IMAGE_SIZES = "(max-width: 640px) 100vw, 50vw";
+
 const ProjectViewerModal = ({ visible, onClose, project }) => {
   if (!visible || !project) return null;
 
@@ -37,17 +41,21 @@ const ProjectViewerModal = ({ visible, onClose, project }) => {
 
         {/* Images */}
         <div className="flex flex-col sm:flex-row gap-4 mb-4">
-          <img
+          <OptimizedImage
             src={project.cover}
-            //alt="Main cover"
-            alt={project.coverDescription}
-            className="w-full sm:w-1/2 rounded-lg object-cover text-stone-100"
+            alt={project.coverDescription || `${project.title} cover`}
+            priority
+            sizes={MODAL_IMAGE_SIZES}
+            wrapperClassName="w-full sm:w-1/2 aspect-video sm:aspect-[4/3]"
+            className="h-full w-full rounded-lg object-cover text-stone-100"
           />
-          <img
+          <OptimizedImage
             src={project.cover2}
-            //alt="Second cover"
-            alt={project.cover2Description}
-            className="w-full sm:w-1/2 rounded-lg object-cover text-stone-100"
+            alt={project.cover2Description || `${project.title} secondary cover`}
+            priority
+            sizes={MODAL_IMAGE_SIZES}
+            wrapperClassName="w-full sm:w-1/2 aspect-video sm:aspect-[4/3]"
+            className="h-full w-full rounded-lg object-cover text-stone-100"
           />
         </div>
 
