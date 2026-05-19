@@ -1,13 +1,28 @@
-const ProjectCard = ({ project, isLoggedIn, onEdit, onDelete, onClick }) => {
+import OptimizedImage from "./OptimizedImage";
+
+const CARD_IMAGE_SIZES =
+  "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
+
+const ProjectCard = ({
+  project,
+  isLoggedIn,
+  onEdit,
+  onDelete,
+  onClick,
+  priority = false,
+}) => {
   return (
     <div
       onClick={onClick}
       className="bg-stone-800 m-5 shadow-md rounded-lg overflow-hidden relative hover:shadow-xl transition cursor-pointer"
     >
-      <img
+      <OptimizedImage
         src={project.cover}
-        alt={`Cover for ${project.title}`}
-        className="w-full aspect-video object-cover text-stone-100"
+        alt={project.coverDescription || `Cover for ${project.title}`}
+        priority={priority}
+        sizes={CARD_IMAGE_SIZES}
+        wrapperClassName="w-full aspect-video"
+        className="h-full w-full object-cover text-stone-100"
       />
 
       <div className="p-4">
