@@ -55,8 +55,10 @@ async function createServer() {
         render = (await import("./dist/server/entry-server.js")).render;
       }
 
-      const appHtml = render(url);
-      const html = template.replace("<!--ssr-outlet-->", appHtml);
+      const { html: appHtml, head } = render(url);
+      const html = template
+        .replace("<!--ssr-outlet-->", appHtml)
+        .replace("<!--app-head-->", head);
 
       res.status(200).set({ "Content-Type": "text/html" }).send(html);
     } catch (error) {
