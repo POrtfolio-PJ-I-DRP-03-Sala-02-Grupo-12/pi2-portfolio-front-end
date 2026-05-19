@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /editor
+
+Sitemap: https://www.gabisou.com/sitemap.xml
