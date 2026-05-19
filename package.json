@@ -11,6 +11,9 @@
     "lint": "eslint .",
     "preview": "NODE_ENV=production node server.js"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@clerk/clerk-react": "^5.47.0",
     "dotenv": "^17.4.2",
