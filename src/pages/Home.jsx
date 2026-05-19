@@ -1,13 +1,15 @@
-import { useState } from 'react'
-import ProjectCard from '../components/ProjectCard'
-import ProjectViewerModal from '../components/ProjectViewerModal'
+import { lazy, Suspense, useState } from "react";
+import ProjectCard from "../components/ProjectCard";
+import { useProjectsAPI } from "../hooks/useProjectsAPI";
 
-import { useProjectsAPI } from '../hooks/useProjectsAPI'
+const ProjectViewerModal = lazy(
+  () => import("../components/ProjectViewerModal")
+);
 
 const Home = () => {
-	const [projects] = useProjectsAPI()
-	const [selectedProject, setSelectedProject] = useState(null)
-	const [viewerOpen, setViewerOpen] = useState(false)
+  const [projects] = useProjectsAPI();
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [viewerOpen, setViewerOpen] = useState(false);
 
   const handleView = (project) => {
     setSelectedProject(project);
@@ -20,22 +22,28 @@ const Home = () => {
         Portfolio
       </h1>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-				{Array.isArray(projects) && projects.map((project) => (
-					<ProjectCard
-						key={project.id}
-						project={project}
-						isLoggedIn={false}
-						onClick={() => handleView(project)}
-					/>
-				))}
-			</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        {Array.isArray(projects) &&
+          projects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              isLoggedIn={false}
+              priority={index < 3}
+              onClick={() => handleView(project)}
+            />
+          ))}
+      </div>
 
-      <ProjectViewerModal
-        visible={viewerOpen}
-        onClose={() => setViewerOpen(false)}
-        project={selectedProject}
-      />
+      {viewerOpen && (
+        <Suspense fallback={null}>
+          <ProjectViewerModal
+            visible={viewerOpen}
+            onClose={() => setViewerOpen(false)}
+            project={selectedProject}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };
