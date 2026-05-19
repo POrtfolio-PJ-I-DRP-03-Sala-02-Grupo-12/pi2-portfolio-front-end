@@ -4,7 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NODE_ENV = "production"
+  # Do not set NODE_ENV=production here — npm would skip devDependencies (vite, etc.)
+  NPM_FLAGS = "--include=dev"
   NETLIFY = "true"
 
 [functions]
